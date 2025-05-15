@@ -1,6 +1,6 @@
 {
    "manifest_version": 3,
-   "name": "Workspace Saver",
+   "name": "Window Keeper",
    "version": "1.0",
    "description": "Save and switch between sets of tabs for different tasks.",
    "permissions": ["tabs", "storage"],
