@@ -26,16 +26,10 @@ function displayWindows() {
          const name = document.createElement("h3");
          name.textContent = windowName;
 
-         const urlsList = document.createElement("ul")
+         const urlsList = document.createElement("div")
+         const dropdownButton = createDropdownButton();
 
-         const dropDownButton = document.createElement("button");
-         const dropDownImg = document.createElement("img");
-         dropDownImg.src = "drop-down-arrow.png";
-         dropDownImg.alt = "Dropdown icon";
-         dropDownImg.classList.add('dropdown-icon');
-         dropDownButton.appendChild(dropDownImg);
-
-         dropDownButton.addEventListener("click", function(event) {
+         dropdownButton.addEventListener("click", function(event) {
             if (urlsList.classList.contains("hidden")) {
                urlsList.classList.remove("hidden");
             } else {
@@ -43,17 +37,48 @@ function displayWindows() {
             }
          })
 
+         const deleteButton = createDeleteButton();
+
          for (let url of result[windowName]) {
-            const listItem = document.createElement("li");
+            const listItem = document.createElement("a");
             listItem.textContent = url;
+            listItem.href = url; 
+            listItem.target = "_blank";
             urlsList.appendChild(listItem);
          }
 
          urlsList.classList.add('hidden');
       
          windowsList.appendChild(name);
-         windowsList.appendChild(dropDownButton);
+         windowsList.appendChild(dropdownButton);
+         windowsList.appendChild(deleteButton);
          windowsList.appendChild(urlsList);
       }
    })
+}
+
+function createDropdownButton() {
+   const dropdownButton = document.createElement("button");
+   dropdownButton.classList.add("dropdown-button");
+
+   const dropdownImg = document.createElement("img");
+   dropdownImg.src = "down-arrow.png";
+   dropdownImg.alt = "Dropdown icon";
+   dropdownImg.classList.add('icon');
+
+   dropdownButton.appendChild(dropdownImg);
+   return dropdownButton;
+}
+
+function createDeleteButton() {
+   const deleteButton = document.createElement("button");
+   deleteButton.classList.add("delete-button");
+
+   const deleteImg = document.createElement("img");
+   deleteImg.src = "bin.png"
+   deleteImg.alt = "Delete icon";
+   deleteImg.classList.add('icon');
+
+   deleteButton.appendChild(deleteImg);
+   return deleteButton;
 }

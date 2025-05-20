@@ -2,11 +2,30 @@ body {
    width: 400px;
 }
 
-.dropdown-icon {
-   height: 10px;
-   width: 10px;
+.icon {
+   height: 25px;
+   width: 25px;
+   padding: 10px;
+}
+
+button:hover {
+   cursor: pointer
+}
+
+.delete-button, .dropdown-button {
+   border: none;
+   background-color: white;
 }
 
 .hidden {
    display: none;
+}
+
+.saved-windows a {
+   display: block;
+   text-decoration: none;
+}
+
+.saved-windows a:hover {
+   font-size: 1.2rem;
 }
