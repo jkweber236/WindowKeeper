@@ -4,12 +4,17 @@ displayWindows();
 
 saveForm.addEventListener("submit", function(event) {
    event.preventDefault();
-   saveWindow();
+   const windowName = document.getElementById("name-input").value;
+
+   if (!windowName) {
+      alert("Please enter a name for your window.");
+      return
+   }
+
+   saveWindow(windowName);
 })
 
-function saveWindow() {
-   var windowName = document.getElementById("name-input").value;
-
+function saveWindow(windowName) {
    chrome.tabs.query({ currentWindow: true }, function(tabs) {
       let currentWindowUrls = tabs.map(tab => tab.url);
       chrome.storage.local.set({ [windowName]: currentWindowUrls }, function() {
@@ -19,7 +24,7 @@ function saveWindow() {
 }
 
 function displayWindows() {
-   windowsList = document.querySelector('.saved-windows');
+   const windowsList = document.querySelector('.saved-windows');
    windowsList.innerHTML = "";
    chrome.storage.local.get(null, function(result) {
       for (let windowName in result) {
@@ -38,6 +43,12 @@ function displayWindows() {
          })
 
          const deleteButton = createDeleteButton();
+
+         deleteButton.addEventListener("click", function(event) {
+            chrome.storage.local.remove(windowName, function() {
+               displayWindows();
+            });
+         });
 
          for (let url of result[windowName]) {
             const listItem = document.createElement("a");
