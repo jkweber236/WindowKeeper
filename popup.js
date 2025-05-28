@@ -28,6 +28,9 @@ function displayWindows() {
    windowsList.innerHTML = "";
    chrome.storage.local.get(null, function(result) {
       for (let windowName in result) {
+         const card = document.createElement("div");
+         card.classList.add("window-card");
+         
          const name = document.createElement("h3");
          name.textContent = windowName;
 
@@ -60,10 +63,12 @@ function displayWindows() {
 
          urlsList.classList.add('hidden');
       
-         windowsList.appendChild(name);
-         windowsList.appendChild(dropdownButton);
-         windowsList.appendChild(deleteButton);
-         windowsList.appendChild(urlsList);
+         card.appendChild(name);
+         card.appendChild(dropdownButton);
+         card.appendChild(deleteButton);
+         card.appendChild(urlsList);
+
+         windowsList.appendChild(card);
       }
    })
 }
